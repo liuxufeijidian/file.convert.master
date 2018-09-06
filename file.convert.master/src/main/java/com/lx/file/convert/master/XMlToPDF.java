@@ -2,10 +2,14 @@ package com.lx.file.convert.master;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URI;
+import java.net.URL;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -19,6 +23,8 @@ import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
+import org.apache.xmlgraphics.io.Resource;
+import org.apache.xmlgraphics.io.ResourceResolver;
 import org.xml.sax.SAXException;
 
 public class XMlToPDF {
@@ -62,8 +68,21 @@ public class XMlToPDF {
 
 		    // Resulting SAX events (the generated FO) must be piped through to FOP
 		    Result res = new SAXResult(fop.getDefaultHandler());
-
 		    // Step 6: Start XSLT transformation and FOP processing
+		    
+//		    ResourceResolver resolver = new ResourceResolver() {
+//		        public Resource getResource(URI uri) throws IOException {
+//		        	InputStream InputStream = new FileInputStream(new File(uri));
+//		            return new Resource(InputStream);
+//		        }
+//
+//		        public OutputStream getOutputStream(URI uri) throws IOException {
+//		        	  File file = new File(uri);
+//		              URL url = file.toURL();
+//		            return url.openConnection().getOutputStream();
+//		        }
+//		    };		    
+		    transformer.setURIResolver(transformer.getURIResolver());
 		    transformer.transform(src, res);
 
 		} catch (TransformerException e) {
