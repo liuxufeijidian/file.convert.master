@@ -21,19 +21,64 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-		<!--doc 转pdf  -->
+		<!--doc 转pdf -->
+		<!-- https://mvnrepository.com/artifact/fr.opensagres.xdocreport/xdocreport -->
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>xdocreport</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-scratchpad</artifactId>
+			<version>3.17</version>
+		</dependency>
+		<!-- <dependency> <groupId>org.apache.tika</groupId> <artifactId>tika-app</artifactId> 
+			<version>1.16</version> </dependency> -->
 		<dependency>
 			<groupId>org.apache.xmlgraphics</groupId>
 			<artifactId>fop</artifactId>
 			<version>2.3</version>
 		</dependency>
-	<!-- https://mvnrepository.com/artifact/org.apache.tika/tika-app -->
-	<dependency>
-	    <groupId>org.apache.tika</groupId>
-	    <artifactId>tika-app</artifactId>
-	    <version>1.18</version>
-	</dependency>
 
+		<!--操作docx文档 -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.14</version>
+		</dependency>
 
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>org.apache.poi.xwpf.converter.core</artifactId>
+			<version>1.0.6</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>poi-ooxml</artifactId>
+					<groupId>org.apache.poi</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
+			<version>1.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.document</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
+			<version>1.0.6</version>
+		</dependency>
 	</dependencies>
 </project>

@@ -38,7 +38,9 @@ import com.lx.file.convert.master.utils.PathMaster;
 
 public class DocToPdf {
 	//配置信息地址
-	private static final String  config="C:\\Users\\Administrator\\Desktop\\新建文件夹\\fop-2.3\\fop\\conf\\fop.xconf";
+	private static final String  CONFIG="C:\\Users\\Administrator\\Desktop\\新建文件夹\\fop-2.3\\fop\\conf\\fop.xconf";
+	private static final String  OUTFILEFO=PathMaster.getWebRootPath()  + java.io.File.separator + "temp"+java.io.File.separator+"com.fo";
+	private static final String  OUTFILEPDF=PathMaster.getWebRootPath()  + java.io.File.separator + "temp"+java.io.File.separator+"aa.pdf";
 	/**
 	 * doc转xml
 	 */
@@ -55,7 +57,10 @@ public class DocToPdf {
 		PicturesManager nPicturesManager = new PicturesManager() {
 			
 			public String savePicture(byte[] arg0, PictureType arg1,String arg2, float arg3, float arg4) {
-				return  "images" + java.io.File.separator + arg2;
+				//file:///F://20.vscode//iWorkP//temp//images//0.jpg
+				//System.out.println("file:///"+PathMaster.getWebRootPath()+ java.io.File.separator + "temp"+java.io.File.separator+"images" + java.io.File.separator + arg2);
+//				return  "file:///"+PathMaster.getWebRootPath()+java.io.File.separator +"temp"+java.io.File.separator+"images" + java.io.File.separator + arg2;
+				return  "file:///"+PathMaster.getWebRootPath()+java.io.File.separator +"temp"+java.io.File.separator+"images" + java.io.File.separator + arg2;
 			}
 		};
 
@@ -68,11 +73,10 @@ public class DocToPdf {
 			nFile.mkdirs();
 		}
 		for (Picture nPicture : nHWPFDocument.getPicturesTable().getAllPictures()) {
-			System.out.println(nTempPath + nPicture.suggestFullFileName());
 			nPicture.writeImageContent(new FileOutputStream(nTempPath + nPicture.suggestFullFileName()));
 		}
 		Document nHtmlDocument = nWordToHtmlConverter.getDocument();
-		OutputStream nByteArrayOutputStream = new FileOutputStream(PathMaster.getWebRootPath()  + java.io.File.separator + "temp"+java.io.File.separator+"aa.fo");
+		OutputStream nByteArrayOutputStream = new FileOutputStream(OUTFILEFO);
 		DOMSource nDOMSource = new DOMSource(nHtmlDocument);
 		StreamResult nStreamResult = new StreamResult(nByteArrayOutputStream);
 
@@ -105,7 +109,6 @@ public class DocToPdf {
 		new URIResolverAdapter(new URIResolver(){
 			public Source resolve(String href, String base) throws TransformerException {
 				try {
-					System.out.println(href+"----------------------");
 		            URL url = new URL(href);
 		            URLConnection connection = url.openConnection();
 		            connection.setRequestProperty("User-Agent", "whatever");
@@ -118,12 +121,12 @@ public class DocToPdf {
 		OutputStream out = null;
 		try {
 			
-			fopFactory = FopFactory.newInstance(new File(config));
+			fopFactory = FopFactory.newInstance(new File(CONFIG));
 			
 			// Step 2: Set up output stream.
 			// Note: Using BufferedOutputStream for performance reasons (helpful with FileOutputStreams).
 			
-			out = new BufferedOutputStream(new FileOutputStream(new File("C:\\Users\\Administrator\\Desktop\\complete.pdf")));
+			out = new BufferedOutputStream(new FileOutputStream(OUTFILEPDF));
 		    
 			// Step 3: Construct fop with desired output format
 		    Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, out);
@@ -134,7 +137,7 @@ public class DocToPdf {
 		    
 		    // Step 5: Setup input and output for XSLT transformation
 		    // Setup input stream
-		    Source src = new StreamSource(new File("F:\\20.vscode\\iWorkP\\temp\\aa.xml"));
+		    Source src = new StreamSource(OUTFILEFO);
 
 		    // Resulting SAX events (the generated FO) must be piped through to FOP
 		    Result res = new SAXResult(fop.getDefaultHandler());
@@ -154,15 +157,8 @@ public class DocToPdf {
 			}
 		}}
 	
-	public static void main(String[] args) {
-		 try {
-			new DocToPdf().xmlToPDF();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static void main(String[] args) throws SAXException, TransformerException {
+		 //new DocToPdf().toXML("C:\\Users\\Administrator\\Desktop\\doc\\知识管理（旗舰版）需求分析文档-2017-12-25.doc");
+		 new DocToPdf().xmlToPDF();
 	}
 }
