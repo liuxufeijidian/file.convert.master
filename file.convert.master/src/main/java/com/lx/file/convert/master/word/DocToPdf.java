@@ -39,8 +39,8 @@ import com.lx.file.convert.master.utils.PathMaster;
 public class DocToPdf {
 	//配置信息地址
 	private static final String  CONFIG="C:\\Users\\Administrator\\Desktop\\新建文件夹\\fop-2.3\\fop\\conf\\fop.xconf";
-	private static final String  OUTFILEFO=PathMaster.getWebRootPath()  + java.io.File.separator + "temp"+java.io.File.separator+"com.fo";
-	private static final String  OUTFILEPDF=PathMaster.getWebRootPath()  + java.io.File.separator + "temp"+java.io.File.separator+"aa.pdf";
+	private static final String  OUTFILEFO=PathMaster.getWebRootPath()  + java.io.File.separator + "temp"+java.io.File.separator+"test.xml";
+	private static final String  OUTFILEPDF=PathMaster.getWebRootPath()  + java.io.File.separator + "temp"+java.io.File.separator+"test.pdf";
 	/**
 	 * doc转xml
 	 */
@@ -51,7 +51,6 @@ public class DocToPdf {
 		POIFSFileSystem nPOIFSFileSystem = new POIFSFileSystem(new File(filePath));
 
 		HWPFDocument nHWPFDocument = new HWPFDocument(nPOIFSFileSystem);
-
 		WordToFoConverter nWordToHtmlConverter = new WordToFoConverter(
 				DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument());
 		PicturesManager nPicturesManager = new PicturesManager() {
@@ -158,7 +157,7 @@ public class DocToPdf {
 		}}
 	
 	public static void main(String[] args) throws SAXException, TransformerException {
-		 //new DocToPdf().toXML("C:\\Users\\Administrator\\Desktop\\doc\\知识管理（旗舰版）需求分析文档-2017-12-25.doc");
+		 new DocToPdf().toXML("C:\\Users\\Administrator\\Desktop\\doc\\附件四：提取住房公积金支付房屋租赁费用申请表.doc");
 		 new DocToPdf().xmlToPDF();
 	}
 }

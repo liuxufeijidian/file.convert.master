@@ -22,13 +22,6 @@
 			<scope>test</scope>
 		</dependency>
 		<!--doc 转pdf -->
-		<!-- https://mvnrepository.com/artifact/fr.opensagres.xdocreport/xdocreport -->
-		<dependency>
-			<groupId>fr.opensagres.xdocreport</groupId>
-			<artifactId>xdocreport</artifactId>
-			<version>1.0.4</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-scratchpad</artifactId>
